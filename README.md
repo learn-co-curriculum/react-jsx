@@ -213,21 +213,24 @@ In all the lesson examples we've seen so far, each component is returning a
 HTML element we would normally use to contain content. The following are all
 valid components:
 
-```JavaScript
+```jsx
 class PlainDiv extends Component {
   render() {
-    return <div>I am one line, so I do not need the parentheses</div>
+    return <div>I am one line, so I do not need the parentheses</div>;
   }
 }
 
 class Photo extends Component {
   render() {
     return (
-        <figure>
-          <img className="image" src="https://s3.amazonaws.com/ironboard-learn/sunglasses.gif" />
-          <figcaption>Whoa</figcaption>
-        </figure>
-    )
+      <figure>
+        <img
+          className="image"
+          src="https://s3.amazonaws.com/ironboard-learn/sunglasses.gif"
+        />
+        <figcaption>Whoa</figcaption>
+      </figure>
+    );
   }
 }
 
@@ -244,7 +247,7 @@ class Table extends Component {
           <th>Tim Berners-Lee</th>
         </tr>
       </table>
-    )
+    );
   }
 }
 
@@ -256,7 +259,7 @@ class ParentComponent extends Component {
         <Photo />
         <Table />
       </main>
-    )
+    );
   }
 }
 ```
@@ -306,9 +309,7 @@ run-able JavaScript process.
 
 ## Resources
 
-- JSX: https://facebook.github.io/react/docs/jsx-in-depth.html
-
-<p class='util--hide'>View <a href='https://learn.co/lessons/react-jsx'>JSX</a> on Learn.co and start learning to code for free.</p>
+- [JSX](https://facebook.github.io/react/docs/jsx-in-depth.html)
 
 [frag]: https://reactjs.org/docs/fragments.html
 [arrowf]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions
