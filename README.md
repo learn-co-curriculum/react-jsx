@@ -42,7 +42,7 @@ of ordering a sandwich.
   details.
 - To order imperatively would mean saying something like this instead: "I would
   like you to take three slices of ham, two slices of cheese and a jar of
-  mayonaisse from the refrigerator and place them together on a clean counter.
+  mayonnaise from the refrigerator and place them together on a clean counter.
   Please also find two slices of bread. Stack the ham, cheese and bread in this
   order: bread, ham, ham, ham, cheese, cheese, bread. Remove the top slice of
   bread and apply a dollop of mayo. Replace top slice of bread and place
@@ -50,21 +50,21 @@ of ordering a sandwich.
   me on a plate."
 
 In general (and to the relief of restaurant staff everywhere), we prefer the
-declarative approach when speaking unless we are speifically instructing someone
+declarative approach when speaking unless we are specifically instructing someone
 else. Most of the JavaScript we've written is considered imperative because our
 code is made of explicit steps. In plain JavaScript, to render a `div` element
 on the page we might end up writing something like:
 
-```js
-let div = document.createElement('div')
-div.textContent = "hello world"
-document.body.appendChild(div)
+```jsx
+let div = document.createElement("div");
+div.textContent = "hello world";
+document.body.appendChild(div);
 ```
 
 Three distinct steps are used here. In JSX, however, we just need to write _what_
 we want, and allow React to figure things out behind the scenes:
 
-```js
+```jsx
 <div>hello world</div>
 ```
 
@@ -77,19 +77,21 @@ world' inside.
 
 React components return JSX within their `render()` methods:
 
-```js
+```jsx
 class Tweet extends Component {
-
-  currentTime = () => new Date().toString()
+  currentTime = () => new Date().toString();
 
   render() {
     return (
       <div className="tweet">
-        <img src="http://twitter.com/some-avatar.png" className="tweet__avatar" />
+        <img
+          src="http://twitter.com/some-avatar.png"
+          className="tweet__avatar"
+        />
         <div className="tweet__body">
-            <p>We are writing this tweet in JSX. Holy moly!</p>
-            <p>{ Math.floor(Math.random()*100)} retweets </p>
-            <p>{ this.currentTime() }</p>
+          <p>We are writing this tweet in JSX. Holy moly!</p>
+          <p>{Math.floor(Math.random() * 100)} retweets </p>
+          <p>{this.currentTime()}</p>
         </div>
       </div>
     );
@@ -113,12 +115,8 @@ Although our example displays six lines of JSX, this is done for readability
 only. The entire return statement is wrapped in parentheses so it is considered
 one 'chunk' of JSX code, with _one_ top level element.
 
-```js
-return (
-  <div  className="tweet">
-    ...
-  </div>
-)
+```jsx
+return <div className="tweet">...</div>;
 ```
 
 #### JSX Can Include JavaScript
@@ -126,12 +124,12 @@ return (
 While writing our pseudo-HTML in JSX, we can also write vanilla JavaScript
 _in-line_. We do this by wrapping the JavaScript code in curly braces.
 
-```js
+```jsx
 <p>{ Math.floor(Math.random()*100) } retweets</p>
 <p>{ this.currentTime() }</p>
 ```
 
-In the example, we call the `Math.floor()`  and `Math.random()` methods
+In the example, we call the `Math.floor()` and `Math.random()` methods
 directly, which will return a random number when the component is rendered.
 
 We _also_ called a custom function, `currentTime()`, which returns the String
@@ -139,15 +137,15 @@ value of the current date and time. In our example, because `currentTime()` is
 another method within the Tweet class, we must prepend `currentTime()` with
 `this`:
 
-```js
-<p>{ this.currentTime() }</p>
+```jsx
+<p>{this.currentTime()}</p>
 ```
 
 **Note on Arrow Functions:** Syntax is important here! Since we're using an
 arrow function for `currentTime()`,
 
-```js
-currentTime = () => new Date().toString()
+```jsx
+currentTime = () => new Date().toString();
 ```
 
 ...we are _implicitly binding_ the method to the Tweet class. Getting acquainted with
@@ -158,8 +156,8 @@ As we get into _props_ in React, we sometimes need to call functions like
 **without the arrow function**, we often have to explicitly bind methods to the
 class they are _originally from_, causing us to write code like this:
 
-```js
-this.currentTime().bind(this)
+```jsx
+this.currentTime().bind(this);
 ```
 
 Without the `.bind(this)`, the _first_ 'this' will refer to whatever object it
@@ -174,15 +172,15 @@ h1 element with this content inside" and letting React work on the element
 creation and function calls. Because we follow the proper syntax, React knows
 that when we write:
 
-```js
+```jsx
 <h1 id="header">Hello!</h1>
 ```
 
 React must convert this JSX into regular, imperative Javascript when
 it renders the component:
 
-```js
-React.createElement("h1", {id: "header"}, "Hello!")
+```jsx
+React.createElement("h1", { id: "header" }, "Hello!");
 ```
 
 Which is then committed to the actual DOM as an `h1` DOM node. We never need
@@ -191,7 +189,7 @@ to see this - all _we_ write is the JSX, `<h1 id="header">Hello!</h1>`.
 Due to this, as well as JSX's specific syntax, we aren't able to include just
 _any_ JavaScript statement. For instance, the following will not work in JSX:
 
-```js
+```jsx
 <h1 id="header">{if (true) {
   "Hello"
 } else {
@@ -201,8 +199,8 @@ _any_ JavaScript statement. For instance, the following will not work in JSX:
 
 However, the ternary alternative _does_ work:
 
-```js
-<h1 id="header">{ true ? "Hello" : "Goodbye" }</h1>
+```jsx
+<h1 id="header">{true ? "Hello" : "Goodbye"}</h1>
 ```
 
 There is an easy work around though - you can call class methods in JSX, and
@@ -212,7 +210,7 @@ within these methods, you can include whatever valid JavaScript you'd like.
 
 In all the lesson examples we've seen so far, each component is returning a
 `div` that contains content or child elements. However, we can actually use any
-HTML element we would normally use to contain content.  The following are all
+HTML element we would normally use to contain content. The following are all
 valid components:
 
 ```JavaScript
@@ -243,7 +241,7 @@ class Table extends Component {
         </tr>
         <tr>
           <th>312213</th>
-          <th>Tim Berners-Lee</th>  
+          <th>Tim Berners-Lee</th>
         </tr>
       </table>
     )
@@ -284,19 +282,15 @@ In the early forms of React, instead of JSX, components returned JavaScript that
 was much less reader friendly. To create a React element, we would write things
 like this:
 
-```js
-React.createElement(
-  'h1',
-  {className: 'greeting'},
-  'Hello, world!'
-);
+```jsx
+React.createElement("h1", { className: "greeting" }, "Hello, world!");
 ```
 
 While JSX introduces some new rules we must follow, the benefit is that we can
 write code that is semantic and _declarative_. Writing this:
 
-```js
-<h1 className='greeting'>Hello, world!</h1>
+```jsx
+<h1 className="greeting">Hello, world!</h1>
 ```
 
 is just much more pleasant. When we're building complex applications, where
